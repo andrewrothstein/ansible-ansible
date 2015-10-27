@@ -1,0 +1,25 @@
+---
+- name: RedHat install
+  when: ansible_os_family == 'RedHat'
+  include: RedHat.yml
+
+- name: Debian install
+  when: ansible_os_family == 'Debian'
+  include: Debian.yml
+
+- name: install ec2 dynamic inventory
+  get_url: >
+    url=https://raw.github.com/ansible/ansible/devel/contrib/inventory/ec2.py
+    dest=/etc/ansible/ec2.py
+    mode=0755
+    owner=root
+    group=root
+    
+- name: install ec2 dynamic inventory configuration
+  get_url: >
+    url=https://raw.github.com/ansible/ansible/devel/contrib/inventory/ec2.ini
+    dest=/etc/ansible/ec2.ini
+    mode=0644
+    owner=root
+    group=root
+    
